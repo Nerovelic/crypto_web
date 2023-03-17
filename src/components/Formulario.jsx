@@ -45,7 +45,6 @@ const Formulario = () =>{
                     id: crypto.CoinInfo.Name,
                     nombre: crypto.CoinInfo.FullName
                 }
-                //console.log(objeto);
                 return objeto;
             });
             setCryptos(arregloCryptos);
