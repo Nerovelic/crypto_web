@@ -28,7 +28,7 @@ const useSelectorMonedas = (label,divisas) => {
         value={state}
         onChange={e => setState(e.target.value)}
         >
-            <option>Seleccionar una divisia</option>
+            <option>Seleccionar una divisa</option>
             {divisas.map(opcion => (
               <option 
                 key={opcion.id}
