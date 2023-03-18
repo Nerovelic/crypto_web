@@ -25,13 +25,20 @@ const InputSubmit = styled.input`
     }
 `;
 
-
+const Resultado = styled.p`
+    color: white;
+    margin: 30px auto;
+    font-size: 24px;
+    text-align: center;
+`;
 
 const Formulario = () =>{
     const [cryptos,setCryptos] = useState([]);
     const [error,setError] = useState(false);
     const [state,SelectorMonedas] = useSelectorMonedas('Elige tu moneda:',monedas);
     const [crypt,SelectorCryptos] = useSelectorMonedas('Elige tu cryptomoneda:',cryptos);
+    const [resultadoConsulta, setResultadoConsulta] = useState({});
+    const [valorCotizado, setValorCotizado] = useState(null);
 
     //conslutar una api//
     useEffect(() =>{
@@ -52,7 +59,7 @@ const Formulario = () =>{
         consultarApi();
     }, [])
 
-    const manejadorSubmit = e =>{
+    const manejadorSubmit = async e => {
         e.preventDefault();
         if([state,crypt].includes('')){
             console.log('Error 404');
@@ -60,8 +67,11 @@ const Formulario = () =>{
             return;
         }
         setError(false);
-        console.log(state);
-        console.log(crypt);
+        const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${crypt}&tsyms=${state}`;
+        const respuesta = await fetch(url);
+        const resultado = await respuesta.json();
+        setResultadoConsulta(resultado);
+        setValorCotizado(resultado.DISPLAY[crypt][state].PRICE);
     }
 
     return(
@@ -75,9 +85,14 @@ const Formulario = () =>{
             type="submit" 
             value="Cotizar"/>
         </form>
+        {valorCotizado && (
+            <Resultado>
+                El valor de {crypt} en {state} es de: {valorCotizado}
+            </Resultado>
+        )}
         </div>
         </>
-    )
+    )    
 }
 
 export default Formulario
