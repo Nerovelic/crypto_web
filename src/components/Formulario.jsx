@@ -37,7 +37,7 @@ const Formulario = () =>{
     const [error,setError] = useState(false);
     const [state,SelectorMonedas] = useSelectorMonedas('Elige tu moneda:',monedas);
     const [crypt,SelectorCryptos] = useSelectorMonedas('Elige tu cryptomoneda:',cryptos);
-    const [resultadoConsulta, setResultadoConsulta] = useState({});
+    const [setResultadoConsulta] = useState({});
     const [valorCotizado, setValorCotizado] = useState(null);
 
     //conslutar una api//
