@@ -37,8 +37,9 @@ const Formulario = () =>{
     const [error,setError] = useState(false);
     const [state,SelectorMonedas] = useSelectorMonedas('Elige tu moneda:',monedas);
     const [crypt,SelectorCryptos] = useSelectorMonedas('Elige tu cryptomoneda:',cryptos);
-    const [setResultadoConsulta] = useState({});
+    const [resultadoConsulta, setResultadoConsulta] = useState({});
     const [valorCotizado, setValorCotizado] = useState(null);
+    const [imagen, setImagen] = useState('');
 
     //conslutar una api//
     useEffect(() =>{
@@ -50,7 +51,7 @@ const Formulario = () =>{
             const arregloCryptos = resultado.Data.map(crypto =>{
                 const objeto = {
                     id: crypto.CoinInfo.Name,
-                    nombre: crypto.CoinInfo.FullName
+                    nombre: crypto.CoinInfo.FullName,
                 }
                 return objeto;
             });
@@ -72,6 +73,7 @@ const Formulario = () =>{
         const resultado = await respuesta.json();
         setResultadoConsulta(resultado);
         setValorCotizado(resultado.DISPLAY[crypt][state].PRICE);
+        setImagen(resultado.RAW[crypt][state].IMAGEURL);
     }
 
     return(
@@ -86,7 +88,8 @@ const Formulario = () =>{
             value="Cotizar"/>
         </form>
         {valorCotizado && (
-            <Resultado>
+            <Resultado>             
+                <img src={`https://www.cryptocompare.com/${imagen}`} alt="Imagen de la crypto" />
                 El valor de {crypt} en {state} es de: {valorCotizado}
             </Resultado>
         )}
