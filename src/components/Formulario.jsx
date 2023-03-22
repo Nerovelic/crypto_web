@@ -124,6 +124,7 @@ const Formulario = () =>{
         }
         setError(false);
         setMostrarCargando(true);
+        setValorCotizado(null);
         const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${crypt}&tsyms=${state}`;
         const respuesta = await fetch(url);
         const resultado = await respuesta.json();
