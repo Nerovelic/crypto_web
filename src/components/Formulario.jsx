@@ -32,6 +32,23 @@ const Resultado = styled.p`
     text-align: center;
 `;
 
+const Imagenes = styled.img`
+    margin: 10px auto;
+    max-width: 100px;
+    margin-left: 150px;
+`;
+
+const ResultadoContainer = styled.div`
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-top: 50px;
+`;
+
 const Formulario = () =>{
     const [cryptos,setCryptos] = useState([]);
     const [error,setError] = useState(false);
@@ -88,10 +105,10 @@ const Formulario = () =>{
             value="Cotizar"/>
         </form>
         {valorCotizado && (
-            <Resultado>             
-                <img src={`https://www.cryptocompare.com/${imagen}`} alt="Imagen de la crypto" />
-                El valor de {crypt} en {state} es de: {valorCotizado}
-            </Resultado>
+            <ResultadoContainer>
+                <Imagenes src={`https://www.cryptocompare.com/${imagen}`} alt="Imagen de la crypto" />
+                <Resultado>El valor de {crypt} en {state} es de: {valorCotizado}</Resultado>
+            </ResultadoContainer>
         )}
         </div>
         </>
